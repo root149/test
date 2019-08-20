@@ -1,5 +1,7 @@
+---
+
 - name: test ping to zabbix server
-  hosts: zabbix-server
+  hosts: "{{ hosts }}"
   gather_facts: false
   tasks:
     - ping:

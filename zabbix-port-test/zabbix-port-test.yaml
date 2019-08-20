@@ -1,6 +1,6 @@
 - name: test port 10051 on zabbix server
   wait_for:
-  hosts: zabbix-server
+  hosts: "{{ hosts }}"
     port: 10051
     state: started         # Port should be open
     delay: 0               # No wait before first check (sec)

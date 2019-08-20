@@ -1,2 +1,7 @@
 - name: test port 10051 on zabbix server
-  hosts: zabbix-host
+  wait_for:
+  hosts: zabbix-server
+    port: 10051
+    state: started         # Port should be open
+    delay: 0               # No wait before first check (sec)
+    timeout: 3             # Stop checking after timeout (sec)

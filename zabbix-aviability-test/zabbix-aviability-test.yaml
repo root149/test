@@ -1,2 +1,2 @@
 - name: test port from zabbix agent to zabbix server
-  hosts:
+  hosts: zabbix-host-agent

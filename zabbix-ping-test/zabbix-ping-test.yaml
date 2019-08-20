@@ -1,2 +1,5 @@
 - name: test ping to zabbix server
   hosts: zabbix-server
+  gather_facts: false
+  tasks:
+    - ping:

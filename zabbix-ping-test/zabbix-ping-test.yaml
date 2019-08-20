@@ -1,0 +1,2 @@
+- name: test ping to zabbix server
+  hosts: zabbix-server

@@ -1,2 +1,8 @@
-- name: test port from zabbix agent to zabbix server
-  hosts: zabbix-host-agent
+- name: Test Zabbix Server  from Zabbix Client
+    hosts: "{{ hosts }}"
+    - tasks:
+      vars:
+       _zhost: "{{ zhost }}"
+       _zport: "{{ zport }}"
+       shell: nc -zv "{{ _zhost }}" "{{ _zport }}"
+

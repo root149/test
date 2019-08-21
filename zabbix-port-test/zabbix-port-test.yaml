@@ -1,9 +1,4 @@
 ---
-- tasks:
-   name: test port 10051 on zabbix server
-   hosts: "{{ hosts }}"
-   port: 10051
-   state: started         # Port should be open
-   delay: 0               # No wait before first check (sec)
-   timeout: 3             # Stop checking after timeout (sec)
-   ignore_errors: yes
+- hosts: "{{ host }}"
+  tasks:
+       - shell: nc -zv -w 1 {{ host }} 10051

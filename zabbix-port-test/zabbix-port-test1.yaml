@@ -1,6 +1,0 @@
----
-- hosts: "{{ hosts }}"
-  tasks:
-    - vars:
-       port: "{{ port }}"
-       - shell: nc -zv -w 1 {{ hosts }} {{ port }}

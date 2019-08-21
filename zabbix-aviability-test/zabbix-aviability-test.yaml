@@ -1,8 +1,4 @@
-- name: Test Zabbix Server  from Zabbix Client
-    hosts: "{{ hosts }}"
-    - tasks:
-      vars:
-       _zhost: "{{ zhost }}"
-       _zport: "{{ zport }}"
-       shell: nc -zv "{{ _zhost }}" "{{ _zport }}"
-
+---
+- hosts: "{{ host_src }}"
+  tasks:
+       - shell: ping -c 1 {{ host_dst }} 

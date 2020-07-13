@@ -504,12 +504,984 @@ kubernetes-bootcamp-765bf4c7b4-vtkd4   1/1     Running   0          12m   172.18
 $
 U06 обновление приложений
 
+вывод колличества запущеных приложений
+$ kubectl get deployments
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+kubernetes-bootcamp   4/4     4            4           5m25s
+
+$ kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+kubernetes-bootcamp-765bf4c7b4-drr5s   1/1     Running   0          5m47s
+kubernetes-bootcamp-765bf4c7b4-gmltt   1/1     Running   0          5m47s
+kubernetes-bootcamp-765bf4c7b4-k95ws   1/1     Running   0          5m47s
+kubernetes-bootcamp-765bf4c7b4-lblww   1/1     Running   0          5m47s
+$
+
+$ kubectl describe pods
+Name:         kubernetes-bootcamp-765bf4c7b4-drr5s
+Namespace:    default
+Priority:     0
+Node:         minikube/172.17.0.13
+Start Time:   Mon, 13 Jul 2020 08:00:10 +0000
+Labels:       pod-template-hash=765bf4c7b4
+              run=kubernetes-bootcamp
+Annotations:  <none>
+Status:       Running
+IP:           172.18.0.6
+IPs:
+  IP:           172.18.0.6
+Controlled By:  ReplicaSet/kubernetes-bootcamp-765bf4c7b4
+Containers:
+  kubernetes-bootcamp:
+    Container ID:   docker://b77796f4f21b4a7bf298a62089fccb4244596de64801b8a2ee7e4dbd3e57d2f6
+    Image:          gcr.io/google-samples/kubernetes-bootcamp:v1
+    Image ID:       docker-pullable://jocatalin/kubernetes-bootcamp@sha256:0d6b8ee63bb57c5f5b6156f446b3bc3b3c143d233037f3a2f00e279c8fcc64af
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 13 Jul 2020 08:00:16 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-4w9pd (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-4w9pd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-4w9pd
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type     Reason            Age                    From               Message
+  ----     ------            ----                   ----               -------
+  Warning  FailedScheduling  5m58s (x2 over 5m58s)  default-scheduler  0/1 nodes are available: 1 node(s) had taints that the pod didn't tolerate.
+  Normal   Scheduled         5m52s                  default-scheduler  Successfully assigned default/kubernetes-bootcamp-765bf4c7b4-drr5s to minikube
+  Normal   Pulled            5m47s                  kubelet, minikube  Container image "gcr.io/google-samples/kubernetes-bootcamp:v1" already present on machine
+  Normal   Created           5m47s                  kubelet, minikube  Created container kubernetes-bootcamp
+  Normal   Started           5m46s                  kubelet, minikube  Started container kubernetes-bootcamp
 
 
+Name:         kubernetes-bootcamp-765bf4c7b4-gmltt
+Namespace:    default
+Priority:     0
+Node:         minikube/172.17.0.13
+Start Time:   Mon, 13 Jul 2020 08:00:10 +0000
+Labels:       pod-template-hash=765bf4c7b4
+              run=kubernetes-bootcamp
+Annotations:  <none>
+Status:       Running
+IP:           172.18.0.4
+IPs:
+  IP:           172.18.0.4
+Controlled By:  ReplicaSet/kubernetes-bootcamp-765bf4c7b4
+Containers:
+  kubernetes-bootcamp:
+    Container ID:   docker://f7a1b8cbb367f6fe376ca6b3c8270576ce38dadedffd9436f2e82b9e42e3710c
+    Image:          gcr.io/google-samples/kubernetes-bootcamp:v1
+    Image ID:       docker-pullable://jocatalin/kubernetes-bootcamp@sha256:0d6b8ee63bb57c5f5b6156f446b3bc3b3c143d233037f3a2f00e279c8fcc64af
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 13 Jul 2020 08:00:15 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-4w9pd (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-4w9pd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-4w9pd
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type     Reason            Age    From               Message
+  ----     ------            ----   ----               -------
+  Warning  FailedScheduling  5m58s  default-scheduler  0/1 nodes are available: 1 node(s) had taints that the pod didn't tolerate.
+  Normal   Scheduled         5m52s  default-scheduler  Successfully assigned default/kubernetes-bootcamp-765bf4c7b4-gmltt to minikube
+  Normal   Pulled            5m48s  kubelet, minikube  Container image "gcr.io/google-samples/kubernetes-bootcamp:v1" already present on machine
+  Normal   Created           5m48s  kubelet, minikube  Created container kubernetes-bootcamp
+  Normal   Started           5m47s  kubelet, minikube  Started container kubernetes-bootcamp
 
 
+Name:         kubernetes-bootcamp-765bf4c7b4-k95ws
+Namespace:    default
+Priority:     0
+Node:         minikube/172.17.0.13
+Start Time:   Mon, 13 Jul 2020 08:00:10 +0000
+Labels:       pod-template-hash=765bf4c7b4
+              run=kubernetes-bootcamp
+Annotations:  <none>
+Status:       Running
+IP:           172.18.0.2
+IPs:
+  IP:           172.18.0.2
+Controlled By:  ReplicaSet/kubernetes-bootcamp-765bf4c7b4
+Containers:
+  kubernetes-bootcamp:
+    Container ID:   docker://a9037f549911e07eb514fa1859a69591103e82fb576bef3b01233aef36e07cfa
+    Image:          gcr.io/google-samples/kubernetes-bootcamp:v1
+    Image ID:       docker-pullable://jocatalin/kubernetes-bootcamp@sha256:0d6b8ee63bb57c5f5b6156f446b3bc3b3c143d233037f3a2f00e279c8fcc64af
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 13 Jul 2020 08:00:15 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-4w9pd (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-4w9pd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-4w9pd
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type     Reason            Age                    From               Message
+  ----     ------            ----                   ----               -------
+  Warning  FailedScheduling  5m58s (x2 over 5m58s)  default-scheduler  0/1 nodes are available: 1 node(s) had taints that the pod didn't tolerate.
+  Normal   Scheduled         5m52s                  default-scheduler  Successfully assigned default/kubernetes-bootcamp-765bf4c7b4-k95ws to minikube
+  Normal   Pulled            5m48s                  kubelet, minikube  Container image "gcr.io/google-samples/kubernetes-bootcamp:v1" already present on machine
+  Normal   Created           5m48s                  kubelet, minikube  Created container kubernetes-bootcamp
+  Normal   Started           5m47s                  kubelet, minikube  Started container kubernetes-bootcamp
 
 
+Name:         kubernetes-bootcamp-765bf4c7b4-lblww
+Namespace:    default
+Priority:     0
+Node:         minikube/172.17.0.13
+Start Time:   Mon, 13 Jul 2020 08:00:10 +0000
+Labels:       pod-template-hash=765bf4c7b4
+              run=kubernetes-bootcamp
+Annotations:  <none>
+Status:       Running
+IP:           172.18.0.3
+IPs:
+  IP:           172.18.0.3
+Controlled By:  ReplicaSet/kubernetes-bootcamp-765bf4c7b4
+Containers:
+  kubernetes-bootcamp:
+    Container ID:   docker://c9635a354077d6b7cb4c493bc78a9f4ce05daae19c58a21d7552f2db2dd130cd
+    Image:          gcr.io/google-samples/kubernetes-bootcamp:v1
+    Image ID:       docker-pullable://jocatalin/kubernetes-bootcamp@sha256:0d6b8ee63bb57c5f5b6156f446b3bc3b3c143d233037f3a2f00e279c8fcc64af
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 13 Jul 2020 08:00:15 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-4w9pd (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-4w9pd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-4w9pd
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type     Reason            Age                    From               Message
+  ----     ------            ----                   ----               -------
+  Warning  FailedScheduling  5m58s (x2 over 5m58s)  default-scheduler  0/1 nodes are available: 1 node(s) had taints that the pod didn't tolerate.
+  Normal   Scheduled         5m52s                  default-scheduler  Successfully assigned default/kubernetes-bootcamp-765bf4c7b4-lblww to minikube
+  Normal   Pulled            5m48s                  kubelet, minikube  Container image "gcr.io/google-samples/kubernetes-bootcamp:v1" already present on machine
+  Normal   Created           5m48s                  kubelet, minikube  Created container kubernetes-bootcamp
+  Normal   Started           5m47s                  kubelet, minikube  Started container kubernetes-bootcamp
+$
+
+обновляем до новой версии
+подписываем новую версию приложения
+$ kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
+deployment.apps/kubernetes-bootcamp image updated
+
+смотрим что есть
+$ kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+kubernetes-bootcamp-7d6f8694b6-88rz9   1/1     Running   0          49s
+kubernetes-bootcamp-7d6f8694b6-m45nf   1/1     Running   0          47s
+kubernetes-bootcamp-7d6f8694b6-q2hx9   1/1     Running   0          47s
+kubernetes-bootcamp-7d6f8694b6-x4l9s   1/1     Running   0          49s
+
+что запущено
+$ kubectl describe services/kubernetes-bootcamp
+Name:                     kubernetes-bootcamp
+Namespace:                default
+Labels:                   run=kubernetes-bootcamp
+Annotations:              <none>
+Selector:                 run=kubernetes-bootcamp
+Type:                     NodePort
+IP:                       10.99.211.238
+Port:                     <unset>  8080/TCP
+TargetPort:               8080/TCP
+NodePort:                 <unset>  30861/TCP
+Endpoints:                172.18.0.10:8080,172.18.0.11:8080,172.18.0.12:8080 + 1 more...
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>
+$
+
+создаем переменную NODE_PORT и запоминаем его
+$ export NODE_PORT=$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')
+$ echo NODE_PORT=$NODE_PORT
+NODE_PORT=30861
+
+вывод приложения
+$ curl $(minikube ip):$NODE_PORT
+Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-7d6f8694b6-q2hx9 | v=2
+$
+
+обновляем приложение
+ kubectl rollout status deployments/kubernetes-bootcamp
+deployment "kubernetes-bootcamp" successfully rolled out
+
+смотрим, что у нас получилось
+$ kubectl describe pods
+Name:         kubernetes-bootcamp-7d6f8694b6-88rz9
+Namespace:    default
+Priority:     0
+Node:         minikube/172.17.0.13
+Start Time:   Mon, 13 Jul 2020 08:06:48 +0000
+Labels:       pod-template-hash=7d6f8694b6
+              run=kubernetes-bootcamp
+Annotations:  <none>
+Status:       Running
+IP:           172.18.0.11
+IPs:
+  IP:           172.18.0.11
+Controlled By:  ReplicaSet/kubernetes-bootcamp-7d6f8694b6
+Containers:
+  kubernetes-bootcamp:
+    Container ID:   docker://7b3e04c8cb32038ede99bb7f3b3295eeacfee77fe3510d070fe4429b6e02f093
+    Image:          jocatalin/kubernetes-bootcamp:v2
+    Image ID:       docker-pullable://jocatalin/kubernetes-bootcamp@sha256:fb1a3ced00cecfc1f83f18ab5cd14199e30adc1b49aa4244f5d65ad3f5feb2a5
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 13 Jul 2020 08:06:49 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-4w9pd (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-4w9pd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-4w9pd
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  2m26s  default-scheduler  Successfully assigned default/kubernetes-bootcamp-7d6f8694b6-88rz9 to minikube
+  Normal  Pulled     2m25s  kubelet, minikube  Container image "jocatalin/kubernetes-bootcamp:v2" already present on machine
+  Normal  Created    2m25s  kubelet, minikube  Created container kubernetes-bootcamp
+  Normal  Started    2m25s  kubelet, minikube  Started container kubernetes-bootcamp
+
+
+Name:         kubernetes-bootcamp-7d6f8694b6-m45nf
+Namespace:    default
+Priority:     0
+Node:         minikube/172.17.0.13
+Start Time:   Mon, 13 Jul 2020 08:06:50 +0000
+Labels:       pod-template-hash=7d6f8694b6
+              run=kubernetes-bootcamp
+Annotations:  <none>
+Status:       Running
+IP:           172.18.0.12
+IPs:
+  IP:           172.18.0.12
+Controlled By:  ReplicaSet/kubernetes-bootcamp-7d6f8694b6
+Containers:
+  kubernetes-bootcamp:
+    Container ID:   docker://a950867b6fc97e50ab906309a0fd15b5772c9f38dc13fdd6dcabe89ffbef6e43
+    Image:          jocatalin/kubernetes-bootcamp:v2
+    Image ID:       docker-pullable://jocatalin/kubernetes-bootcamp@sha256:fb1a3ced00cecfc1f83f18ab5cd14199e30adc1b49aa4244f5d65ad3f5feb2a5
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 13 Jul 2020 08:06:52 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-4w9pd (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-4w9pd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-4w9pd
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  2m24s  default-scheduler  Successfully assigned default/kubernetes-bootcamp-7d6f8694b6-m45nf to minikube
+  Normal  Pulled     2m23s  kubelet, minikube  Container image "jocatalin/kubernetes-bootcamp:v2" already present on machine
+  Normal  Created    2m23s  kubelet, minikube  Created container kubernetes-bootcamp
+  Normal  Started    2m22s  kubelet, minikube  Started container kubernetes-bootcamp
+
+
+Name:         kubernetes-bootcamp-7d6f8694b6-q2hx9
+Namespace:    default
+Priority:     0
+Node:         minikube/172.17.0.13
+Start Time:   Mon, 13 Jul 2020 08:06:50 +0000
+Labels:       pod-template-hash=7d6f8694b6
+              run=kubernetes-bootcamp
+Annotations:  <none>
+Status:       Running
+IP:           172.18.0.13
+IPs:
+  IP:           172.18.0.13
+Controlled By:  ReplicaSet/kubernetes-bootcamp-7d6f8694b6
+Containers:
+  kubernetes-bootcamp:
+    Container ID:   docker://749b5e5883ce5f6563b39b2bd4f83430db495172d3d6dbb36b35d131fd6e387e
+    Image:          jocatalin/kubernetes-bootcamp:v2
+    Image ID:       docker-pullable://jocatalin/kubernetes-bootcamp@sha256:fb1a3ced00cecfc1f83f18ab5cd14199e30adc1b49aa4244f5d65ad3f5feb2a5
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 13 Jul 2020 08:06:52 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-4w9pd (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-4w9pd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-4w9pd
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  2m24s  default-scheduler  Successfully assigned default/kubernetes-bootcamp-7d6f8694b6-q2hx9 to minikube
+  Normal  Pulled     2m22s  kubelet, minikube  Container image "jocatalin/kubernetes-bootcamp:v2" already present on machine
+  Normal  Created    2m22s  kubelet, minikube  Created container kubernetes-bootcamp
+  Normal  Started    2m22s  kubelet, minikube  Started container kubernetes-bootcamp
+
+
+Name:         kubernetes-bootcamp-7d6f8694b6-x4l9s
+Namespace:    default
+Priority:     0
+Node:         minikube/172.17.0.13
+Start Time:   Mon, 13 Jul 2020 08:06:48 +0000
+Labels:       pod-template-hash=7d6f8694b6
+              run=kubernetes-bootcamp
+Annotations:  <none>
+Status:       Running
+IP:           172.18.0.10
+IPs:
+  IP:           172.18.0.10
+Controlled By:  ReplicaSet/kubernetes-bootcamp-7d6f8694b6
+Containers:
+  kubernetes-bootcamp:
+    Container ID:   docker://34013b1e09a3fdff31eb4bffb2ca1b0a78b06f134cda0ef4c00489c62bacd87f
+    Image:          jocatalin/kubernetes-bootcamp:v2
+    Image ID:       docker-pullable://jocatalin/kubernetes-bootcamp@sha256:fb1a3ced00cecfc1f83f18ab5cd14199e30adc1b49aa4244f5d65ad3f5feb2a5
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 13 Jul 2020 08:06:49 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-4w9pd (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-4w9pd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-4w9pd
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  2m26s  default-scheduler  Successfully assigned default/kubernetes-bootcamp-7d6f8694b6-x4l9s to minikube
+  Normal  Pulled     2m25s  kubelet, minikube  Container image "jocatalin/kubernetes-bootcamp:v2" already present on machine
+  Normal  Created    2m25s  kubelet, minikube  Created container kubernetes-bootcamp
+  Normal  Started    2m25s  kubelet, minikube  Started container kubernetes-bootcamp
+$
+
+обновляем приложение
+$ kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=gcr.io/google-samples/kubernetes-bootcamp:v10
+deployment.apps/kubernetes-bootcamp image updated
+смотрим, что получилось
+$ kubectl get deployments
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+kubernetes-bootcamp   3/4     2            3           11m
+$ kubectl get pods
+NAME                                   READY   STATUS             RESTARTS   AGE
+kubernetes-bootcamp-7d6f8694b6-88rz9   1/1     Running            0          4m20s
+kubernetes-bootcamp-7d6f8694b6-m45nf   1/1     Terminating        0          4m18s
+kubernetes-bootcamp-7d6f8694b6-q2hx9   1/1     Running            0          4m18s
+kubernetes-bootcamp-7d6f8694b6-x4l9s   1/1     Running            0          4m20s
+kubernetes-bootcamp-886577c5d-jrgrw    0/1     ImagePullBackOff   0          26s
+kubernetes-bootcamp-886577c5d-wb7cm    0/1     ImagePullBackOff   0          27s
+$
+
+$ kubectl get deployments
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+kubernetes-bootcamp   3/4     2            3           11m
+$ kubectl get pods
+NAME                                   READY   STATUS             RESTARTS   AGE
+kubernetes-bootcamp-7d6f8694b6-88rz9   1/1     Running            0          4m20s
+kubernetes-bootcamp-7d6f8694b6-m45nf   1/1     Terminating        0          4m18s
+kubernetes-bootcamp-7d6f8694b6-q2hx9   1/1     Running            0          4m18s
+kubernetes-bootcamp-7d6f8694b6-x4l9s   1/1     Running            0          4m20s
+kubernetes-bootcamp-886577c5d-jrgrw    0/1     ImagePullBackOff   0          26s
+kubernetes-bootcamp-886577c5d-wb7cm    0/1     ImagePullBackOff   0          27s
+$ kubectl describe pods
+Name:         kubernetes-bootcamp-7d6f8694b6-88rz9
+Namespace:    default
+Priority:     0
+Node:         minikube/172.17.0.13
+Start Time:   Mon, 13 Jul 2020 08:06:48 +0000
+Labels:       pod-template-hash=7d6f8694b6
+              run=kubernetes-bootcamp
+Annotations:  <none>
+Status:       Running
+IP:           172.18.0.11
+IPs:
+  IP:           172.18.0.11
+Controlled By:  ReplicaSet/kubernetes-bootcamp-7d6f8694b6
+Containers:
+  kubernetes-bootcamp:
+    Container ID:   docker://7b3e04c8cb32038ede99bb7f3b3295eeacfee77fe3510d070fe4429b6e02f093
+    Image:          jocatalin/kubernetes-bootcamp:v2
+    Image ID:       docker-pullable://jocatalin/kubernetes-bootcamp@sha256:fb1a3ced00cecfc1f83f18ab5cd14199e30adc1b49aa4244f5d65ad3f5feb2a5
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 13 Jul 2020 08:06:49 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-4w9pd (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-4w9pd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-4w9pd
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  4m39s  default-scheduler  Successfully assigned default/kubernetes-bootcamp-7d6f8694b6-88rz9 to minikube
+  Normal  Pulled     4m38s  kubelet, minikube  Container image "jocatalin/kubernetes-bootcamp:v2" already present on machine
+  Normal  Created    4m38s  kubelet, minikube  Created container kubernetes-bootcamp
+  Normal  Started    4m38s  kubelet, minikube  Started container kubernetes-bootcamp
+
+
+Name:         kubernetes-bootcamp-7d6f8694b6-q2hx9
+Namespace:    default
+Priority:     0
+Node:         minikube/172.17.0.13
+Start Time:   Mon, 13 Jul 2020 08:06:50 +0000
+Labels:       pod-template-hash=7d6f8694b6
+              run=kubernetes-bootcamp
+Annotations:  <none>
+Status:       Running
+IP:           172.18.0.13
+IPs:
+  IP:           172.18.0.13
+Controlled By:  ReplicaSet/kubernetes-bootcamp-7d6f8694b6
+Containers:
+  kubernetes-bootcamp:
+    Container ID:   docker://749b5e5883ce5f6563b39b2bd4f83430db495172d3d6dbb36b35d131fd6e387e
+    Image:          jocatalin/kubernetes-bootcamp:v2
+    Image ID:       docker-pullable://jocatalin/kubernetes-bootcamp@sha256:fb1a3ced00cecfc1f83f18ab5cd14199e30adc1b49aa4244f5d65ad3f5feb2a5
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 13 Jul 2020 08:06:52 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-4w9pd (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-4w9pd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-4w9pd
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  4m37s  default-scheduler  Successfully assigned default/kubernetes-bootcamp-7d6f8694b6-q2hx9 to minikube
+  Normal  Pulled     4m35s  kubelet, minikube  Container image "jocatalin/kubernetes-bootcamp:v2" already present on machine
+  Normal  Created    4m35s  kubelet, minikube  Created container kubernetes-bootcamp
+  Normal  Started    4m35s  kubelet, minikube  Started container kubernetes-bootcamp
+
+
+Name:         kubernetes-bootcamp-7d6f8694b6-x4l9s
+Namespace:    default
+Priority:     0
+Node:         minikube/172.17.0.13
+Start Time:   Mon, 13 Jul 2020 08:06:48 +0000
+Labels:       pod-template-hash=7d6f8694b6
+              run=kubernetes-bootcamp
+Annotations:  <none>
+Status:       Running
+IP:           172.18.0.10
+IPs:
+  IP:           172.18.0.10
+Controlled By:  ReplicaSet/kubernetes-bootcamp-7d6f8694b6
+Containers:
+  kubernetes-bootcamp:
+    Container ID:   docker://34013b1e09a3fdff31eb4bffb2ca1b0a78b06f134cda0ef4c00489c62bacd87f
+    Image:          jocatalin/kubernetes-bootcamp:v2
+    Image ID:       docker-pullable://jocatalin/kubernetes-bootcamp@sha256:fb1a3ced00cecfc1f83f18ab5cd14199e30adc1b49aa4244f5d65ad3f5feb2a5
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 13 Jul 2020 08:06:49 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-4w9pd (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-4w9pd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-4w9pd
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  4m39s  default-scheduler  Successfully assigned default/kubernetes-bootcamp-7d6f8694b6-x4l9s to minikube
+  Normal  Pulled     4m38s  kubelet, minikube  Container image "jocatalin/kubernetes-bootcamp:v2" already present on machine
+  Normal  Created    4m38s  kubelet, minikube  Created container kubernetes-bootcamp
+  Normal  Started    4m38s  kubelet, minikube  Started container kubernetes-bootcamp
+
+
+Name:         kubernetes-bootcamp-886577c5d-jrgrw
+Namespace:    default
+Priority:     0
+Node:         minikube/172.17.0.13
+Start Time:   Mon, 13 Jul 2020 08:10:42 +0000
+Labels:       pod-template-hash=886577c5d
+              run=kubernetes-bootcamp
+Annotations:  <none>
+Status:       Pending
+IP:           172.18.0.3
+IPs:
+  IP:           172.18.0.3
+Controlled By:  ReplicaSet/kubernetes-bootcamp-886577c5d
+Containers:
+  kubernetes-bootcamp:
+    Container ID:
+    Image:          gcr.io/google-samples/kubernetes-bootcamp:v10
+    Image ID:
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-4w9pd (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             False
+  ContainersReady   False
+  PodScheduled      True
+Volumes:
+  default-token-4w9pd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-4w9pd
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  45s                default-scheduler  Successfully assigned default/kubernetes-bootcamp-886577c5d-jrgrw to minikube
+  Normal   BackOff    12s (x3 over 43s)  kubelet, minikube  Back-off pulling image"gcr.io/google-samples/kubernetes-bootcamp:v10"
+  Warning  Failed     12s (x3 over 43s)  kubelet, minikube  Error: ImagePullBackOff
+  Normal   Pulling    0s (x3 over 44s)   kubelet, minikube  Pulling image "gcr.io/google-samples/kubernetes-bootcamp:v10"
+  Warning  Failed     0s (x3 over 43s)   kubelet, minikube  Failed to pull image "gcr.io/google-samples/kubernetes-bootcamp:v10": rpc error: code = Unknown desc = Error response from daemon: manifest for gcr.io/google-samples/kubernetes-bootcamp:v10 not found: manifest unknown: Failed to fetch "v10" from request "/v2/google-samples/kubernetes-bootcamp/manifests/v10".
+  Warning  Failed     0s (x3 over 43s)   kubelet, minikube  Error: ErrImagePull
+
+
+Name:         kubernetes-bootcamp-886577c5d-wb7cm
+Namespace:    default
+Priority:     0
+Node:         minikube/172.17.0.13
+Start Time:   Mon, 13 Jul 2020 08:10:41 +0000
+Labels:       pod-template-hash=886577c5d
+              run=kubernetes-bootcamp
+Annotations:  <none>
+Status:       Pending
+IP:           172.18.0.2
+IPs:
+  IP:           172.18.0.2
+Controlled By:  ReplicaSet/kubernetes-bootcamp-886577c5d
+Containers:
+  kubernetes-bootcamp:
+    Container ID:
+    Image:          gcr.io/google-samples/kubernetes-bootcamp:v10
+    Image ID:
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-4w9pd (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             False
+  ContainersReady   False
+  PodScheduled      True
+Volumes:
+  default-token-4w9pd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-4w9pd
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  46s                default-scheduler  Successfully assigned default/kubernetes-bootcamp-886577c5d-wb7cm to minikube
+  Normal   BackOff    15s (x3 over 43s)  kubelet, minikube  Back-off pulling image"gcr.io/google-samples/kubernetes-bootcamp:v10"
+  Warning  Failed     15s (x3 over 43s)  kubelet, minikube  Error: ImagePullBackOff
+  Normal   Pulling    1s (x3 over 44s)   kubelet, minikube  Pulling image "gcr.io/google-samples/kubernetes-bootcamp:v10"
+  Warning  Failed     1s (x3 over 44s)   kubelet, minikube  Failed to pull image "gcr.io/google-samples/kubernetes-bootcamp:v10": rpc error: code = Unknown desc = Error response from daemon: manifest for gcr.io/google-samples/kubernetes-bootcamp:v10 not found: manifest unknown: Failed to fetch "v10" from request "/v2/google-samples/kubernetes-bootcamp/manifests/v10".
+  Warning  Failed     1s (x3 over 44s)   kubelet, minikube  Error: ErrImagePull
+$
+понимаем, что чтото пошло не так и откатываем обновление
+$ kubectl rollout undo deployments/kubernetes-bootcamp
+deployment.apps/kubernetes-bootcamp rolled back
+
+$ kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+kubernetes-bootcamp-7d6f8694b6-88rz9   1/1     Running   0          6m33s
+kubernetes-bootcamp-7d6f8694b6-q2hx9   1/1     Running   0          6m31s
+kubernetes-bootcamp-7d6f8694b6-q8z7s   1/1     Running   0          22s
+kubernetes-bootcamp-7d6f8694b6-x4l9s   1/1     Running   0          6m33s
+$
+
+
+ kubectl describe pods
+Name:         kubernetes-bootcamp-7d6f8694b6-88rz9
+Namespace:    default
+Priority:     0
+Node:         minikube/172.17.0.13
+Start Time:   Mon, 13 Jul 2020 08:06:48 +0000
+Labels:       pod-template-hash=7d6f8694b6
+              run=kubernetes-bootcamp
+Annotations:  <none>
+Status:       Running
+IP:           172.18.0.11
+IPs:
+  IP:           172.18.0.11
+Controlled By:  ReplicaSet/kubernetes-bootcamp-7d6f8694b6
+Containers:
+  kubernetes-bootcamp:
+    Container ID:   docker://7b3e04c8cb32038ede99bb7f3b3295eeacfee77fe3510d070fe4429b6e02f093
+    Image:          jocatalin/kubernetes-bootcamp:v2
+    Image ID:       docker-pullable://jocatalin/kubernetes-bootcamp@sha256:fb1a3ced00cecfc1f83f18ab5cd14199e30adc1b49aa4244f5d65ad3f5feb2a5
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 13 Jul 2020 08:06:49 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-4w9pd (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-4w9pd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-4w9pd
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  6m44s  default-scheduler  Successfully assigned default/kubernetes-bootcamp-7d6f8694b6-88rz9 to minikube
+  Normal  Pulled     6m43s  kubelet, minikube  Container image "jocatalin/kubernetes-bootcamp:v2" already present on machine
+  Normal  Created    6m43s  kubelet, minikube  Created container kubernetes-bootcamp
+  Normal  Started    6m43s  kubelet, minikube  Started container kubernetes-bootcamp
+
+
+Name:         kubernetes-bootcamp-7d6f8694b6-q2hx9
+Namespace:    default
+Priority:     0
+Node:         minikube/172.17.0.13
+Start Time:   Mon, 13 Jul 2020 08:06:50 +0000
+Labels:       pod-template-hash=7d6f8694b6
+              run=kubernetes-bootcamp
+Annotations:  <none>
+Status:       Running
+IP:           172.18.0.13
+IPs:
+  IP:           172.18.0.13
+Controlled By:  ReplicaSet/kubernetes-bootcamp-7d6f8694b6
+Containers:
+  kubernetes-bootcamp:
+    Container ID:   docker://749b5e5883ce5f6563b39b2bd4f83430db495172d3d6dbb36b35d131fd6e387e
+    Image:          jocatalin/kubernetes-bootcamp:v2
+    Image ID:       docker-pullable://jocatalin/kubernetes-bootcamp@sha256:fb1a3ced00cecfc1f83f18ab5cd14199e30adc1b49aa4244f5d65ad3f5feb2a5
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 13 Jul 2020 08:06:52 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-4w9pd (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-4w9pd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-4w9pd
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  6m42s  default-scheduler  Successfully assigned default/kubernetes-bootcamp-7d6f8694b6-q2hx9 to minikube
+  Normal  Pulled     6m40s  kubelet, minikube  Container image "jocatalin/kubernetes-bootcamp:v2" already present on machine
+  Normal  Created    6m40s  kubelet, minikube  Created container kubernetes-bootcamp
+  Normal  Started    6m40s  kubelet, minikube  Started container kubernetes-bootcamp
+
+
+Name:         kubernetes-bootcamp-7d6f8694b6-q8z7s
+Namespace:    default
+Priority:     0
+Node:         minikube/172.17.0.13
+Start Time:   Mon, 13 Jul 2020 08:12:59 +0000
+Labels:       pod-template-hash=7d6f8694b6
+              run=kubernetes-bootcamp
+Annotations:  <none>
+Status:       Running
+IP:           172.18.0.4
+IPs:
+  IP:           172.18.0.4
+Controlled By:  ReplicaSet/kubernetes-bootcamp-7d6f8694b6
+Containers:
+  kubernetes-bootcamp:
+    Container ID:   docker://6f5b94d27471ec34f787031e88845b4646bd4f290e9a09e2a3e1c804185672a1
+    Image:          jocatalin/kubernetes-bootcamp:v2
+    Image ID:       docker-pullable://jocatalin/kubernetes-bootcamp@sha256:fb1a3ced00cecfc1f83f18ab5cd14199e30adc1b49aa4244f5d65ad3f5feb2a5
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 13 Jul 2020 08:13:00 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-4w9pd (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-4w9pd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-4w9pd
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  33s   default-scheduler  Successfully assigned default/kubernetes-bootcamp-7d6f8694b6-q8z7s to minikube
+  Normal  Pulled     32s   kubelet, minikube  Container image "jocatalin/kubernetes-bootcamp:v2" already present on machine
+  Normal  Created    32s   kubelet, minikube  Created container kubernetes-bootcamp
+  Normal  Started    31s   kubelet, minikube  Started container kubernetes-bootcamp
+
+
+Name:         kubernetes-bootcamp-7d6f8694b6-x4l9s
+Namespace:    default
+Priority:     0
+Node:         minikube/172.17.0.13
+Start Time:   Mon, 13 Jul 2020 08:06:48 +0000
+Labels:       pod-template-hash=7d6f8694b6
+              run=kubernetes-bootcamp
+Annotations:  <none>
+Status:       Running
+IP:           172.18.0.10
+IPs:
+  IP:           172.18.0.10
+Controlled By:  ReplicaSet/kubernetes-bootcamp-7d6f8694b6
+Containers:
+  kubernetes-bootcamp:
+    Container ID:   docker://34013b1e09a3fdff31eb4bffb2ca1b0a78b06f134cda0ef4c00489c62bacd87f
+    Image:          jocatalin/kubernetes-bootcamp:v2
+    Image ID:       docker-pullable://jocatalin/kubernetes-bootcamp@sha256:fb1a3ced00cecfc1f83f18ab5cd14199e30adc1b49aa4244f5d65ad3f5feb2a5
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 13 Jul 2020 08:06:49 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-4w9pd (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-4w9pd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-4w9pd
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  6m44s  default-scheduler  Successfully assigned default/kubernetes-bootcamp-7d6f8694b6-x4l9s to minikube
+  Normal  Pulled     6m43s  kubelet, minikube  Container image "jocatalin/kubernetes-bootcamp:v2" already present on machine
+  Normal  Created    6m43s  kubelet, minikube  Created container kubernetes-bootcamp
+  Normal  Started    6m43s  kubelet, minikube  Started container kubernetes-bootcamp
+$
+  Ready             True
 
 
 

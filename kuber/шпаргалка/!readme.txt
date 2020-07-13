@@ -312,7 +312,227 @@ kubernetes-bootcamp   NodePort   10.96.87.27   <none>        8080:30920/TCP   5m
 $ export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
 $ echo Name of the Pod: $POD_NAME
 Name of the Pod: kubernetes-bootcamp-765bf4c7b4-ndnq2
+
+установка/прикрепление ярлыка/метки к поду
+$ kubectl label pod $POD_NAME app=v1
+pod/kubernetes-bootcamp-765bf4c7b4-ndnq2 labeled
+
+вывод информации о поде (нужно обратить внимание, на появлении метки)
+$ kubectl describe pods $POD_NAME
+Name:         kubernetes-bootcamp-765bf4c7b4-ndnq2
+Namespace:    default
+Priority:     0
+Node:         minikube/172.17.0.69
+Start Time:   Mon, 13 Jul 2020 04:56:11 +0000
+Labels:       app=v1
+              pod-template-hash=765bf4c7b4
+              run=kubernetes-bootcamp
+Annotations:  <none>
+Status:       Running
+IP:           172.18.0.6
+IPs:
+  IP:           172.18.0.6
+Controlled By:  ReplicaSet/kubernetes-bootcamp-765bf4c7b4
+Containers:
+  kubernetes-bootcamp:
+    Container ID:   docker://a28a08758b4fb976b5a3ad4979f946210009a1a75b998571a5179e7d6ab069b6
+    Image:          gcr.io/google-samples/kubernetes-bootcamp:v1
+    Image ID:       docker-pullable://jocatalin/kubernetes-bootcamp@sha256:0d6b8ee63bb57c5f5b6156f446b3bc3b3c143d233037f3a2f00e279c8fcc64af
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 13 Jul 2020 04:56:14 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-6c2p9 (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-6c2p9:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-6c2p9
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type     Reason            Age                From               Message
+  ----     ------            ----               ----               -------
+  Warning  FailedScheduling  23m (x4 over 23m)  default-scheduler  0/1 nodes are available: 1 node(s) had taints that the pod didn't tolerate.
+  Normal   Scheduled         23m                default-scheduler  Successfully assigned default/kubernetes-bootcamp-765bf4c7b4-ndnq2 to minikube
+  Normal   Pulled            23m                kubelet, minikube  Container image"gcr.io/google-samples/kubernetes-bootcamp:v1" already present on machine
+  Normal   Created           23m                kubelet, minikube  Created container kubernetes-bootcamp
+  Normal   Started           23m                kubelet, minikube  Started container kubernetes-bootcamp
+
+вывод подов по ярлыку/метке
+$ kubectl get pods -l app=v1
+NAME                                   READY   STATUS    RESTARTS   AGE
+kubernetes-bootcamp-765bf4c7b4-ndnq2   1/1     Running   0          24m
+
+удаление сервиса
+$ kubectl delete service -l run=kubernetes-bootcamp
+service "kubernetes-bootcamp" deleted
+
+проверка, что под действительно удалился
+$ kubectl get services
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   25m
+
+проверка, что сервиса действительно теперь нету
+$ curl $(minikube ip):$NODE_PORT
+curl: (7) Failed to connect to 172.17.0.69 port 30920: Connection refused
 $
+
+проверка, что под не удалился
+$ kubectl exec -ti $POD_NAME curl localhost:8080
+Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-765bf4c7b4-ndnq2 | v=1
+$
+
+U05 маштабирование приложений
+
+вывод имеющихся в кластере приложений
+$ kubectl get deployments
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+kubernetes-bootcamp   1/1   
+
+вывод числа реплик у приложения
+$ kubectl get rs
+NAME                             DESIRED   CURRENT   READY   AGE
+kubernetes-bootcamp-765bf4c7b4   1         1         1       52s
+$
+
+увеличение числа реплик и проверка
+$ kubectl scale deployments/kubernetes-bootcamp --replicas=4
+deployment.apps/kubernetes-bootcamp scaled
+$ kubectl get deployments
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+kubernetes-bootcamp   1/4     4            1           114s
+$
+
+повторная проверка, все реплики запустились
+$ kubectl get deployments
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+kubernetes-bootcamp   4/4     4            4           2m24s
+$ kubectl get pods -o wide
+NAME                                   READY   STATUS    RESTARTS   AGE     IP      NODE       NOMINATED NODE   READINESS GATES
+kubernetes-bootcamp-765bf4c7b4-dkqt2   1/1     Running   0          66s     172.18.0.8   minikube   <none>           <none>
+kubernetes-bootcamp-765bf4c7b4-dmdwn   1/1     Running   0          66s     172.18.0.7   minikube   <none>           <none>
+kubernetes-bootcamp-765bf4c7b4-vtkd4   1/1     Running   0          2m49s   172.18.0.2   minikube   <none>           <none>
+kubernetes-bootcamp-765bf4c7b4-z7vrz   1/1     Running   0          66s     172.18.0.9   minikube   <none>           <none>
+$
+вывод информации о поде
+
+$ kubectl describe deployments/kubernetes-bootcamp
+Name:                   kubernetes-bootcamp
+Namespace:              default
+CreationTimestamp:      Mon, 13 Jul 2020 05:34:57 +0000
+Labels:                 run=kubernetes-bootcamp
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               run=kubernetes-bootcamp
+Replicas:               4 desired | 4 updated | 4 total | 4 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  run=kubernetes-bootcamp
+  Containers:
+   kubernetes-bootcamp:
+    Image:        gcr.io/google-samples/kubernetes-bootcamp:v1
+    Port:         8080/TCP
+    Host Port:    0/TCP
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Progressing    True    NewReplicaSetAvailable
+  Available      True    MinimumReplicasAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   kubernetes-bootcamp-765bf4c7b4 (4/4 replicas created)
+Events:
+  Type    Reason             Age    From                   Message
+  ----    ------             ----   ----                   -------
+  Normal  ScalingReplicaSet  3m17s  deployment-controller  Scaled up replica set kubernetes-bootcamp-765bf4c7b4 to 1
+  Normal  ScalingReplicaSet  94s    deployment-controller  Scaled up replica set kubernetes-bootcamp-765bf4c7b4 to 4
+$
+
+
+$ kubectl describe services/kubernetes-bootcamp
+Name:                     kubernetes-bootcamp
+Namespace:                default
+Labels:                   run=kubernetes-bootcamp
+Annotations:              <none>
+Selector:                 run=kubernetes-bootcamp
+Type:                     NodePort
+IP:                       10.111.88.213
+Port:                     <unset>  8080/TCP
+TargetPort:               8080/TCP
+NodePort:                 <unset>  31402/TCP
+Endpoints:                172.18.0.2:8080,172.18.0.7:8080,172.18.0.8:8080 + 1 more...
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>
+$
+создание переменной NODE_PORT -- порт к которому будут обращаться непосредственно пользователи
+$ export NODE_PORT=$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')
+$ echo NODE_PORT=$NODE_PORT
+NODE_PORT=31402
+$
+$ curl $(minikube ip):$NODE_PORT
+Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-765bf4c7b4-dmdwn | v=1
+$
+уменьшение числа реплик приложения(происходит достаточно быстро, по этому увидеть момент когда отмирают реплики вероятно не получится)
+$ kubectl scale deployments/kubernetes-bootcamp --replicas=2
+deployment.apps/kubernetes-bootcamp scaled
+$ kubectl get deployments
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+kubernetes-bootcamp   2/2     2            2           11m
+$
+
+$ kubectl get pods -o wide
+NAME                                   READY   STATUS    RESTARTS   AGE   IP    NODE       NOMINATED NODE   READINESS GATES
+kubernetes-bootcamp-765bf4c7b4-dkqt2   1/1     Running   0          10m   172.18.0.8   minikube   <none>           <none>
+kubernetes-bootcamp-765bf4c7b4-vtkd4   1/1     Running   0          12m   172.18.0.2   minikube   <none>           <none>
+$
+U06 обновление приложений
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                             
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

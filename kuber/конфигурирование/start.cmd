@@ -1,0 +1,1 @@
+minikube start https_proxy=192.168.88.2:3128 http_proxy=192.168.88.2:3128 --docker-env http_proxy=192.168.88.2:3128 --docker-env https_proxy=192.168.88.2:3128 --docker-env no_proxy=192.168.88.0/2

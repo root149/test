@@ -42,3 +42,4 @@ To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 $ kubectl get nodes
 NAME       STATUS   ROLES    AGE   VERSION
 minikube   Ready    master   82s   v1.17.3
+

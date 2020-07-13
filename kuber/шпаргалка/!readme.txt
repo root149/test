@@ -215,11 +215,104 @@ Running On: kubernetes-bootcamp-765bf4c7b4-cmdhj | Total Requests: 1 | App Uptim
  5. выход из оболочки bash (выход из пода)
     exit
 
+U04
+вывод списка подов
+$ kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+kubernetes-bootcamp-765bf4c7b4-ndnq2   1/1     Running   0          79s
 
+вывод списка сервисов
+$ kubectl get services
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   3m19s
 
+публикация сервиса на порт 8080
+$ kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080
+service/kubernetes-bootcamp exposed
 
+проверка после публикации, что сервис действительно появился
+$ kubectl get services
+NAME                  TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
+kubernetes            ClusterIP   10.96.0.1     <none>        443/TCP          4m7s
+kubernetes-bootcamp   NodePort    10.96.87.27   <none>        8080:30920/TCP   26s
+$
 
- 
+вывод информации о зарегистрированом сервисе
+$ kubectl describe services/kubernetes-bootcamp
+Name:                     kubernetes-bootcamp
+Namespace:                default
+Labels:                   run=kubernetes-bootcamp
+Annotations:              <none>
+Selector:                 run=kubernetes-bootcamp
+Type:                     NodePort
+IP:                       10.96.87.27
+Port:                     <unset>  8080/TCP
+TargetPort:               8080/TCP
+NodePort:                 <unset>  30920/TCP
+Endpoints:                172.18.0.6:8080
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>
+$
+
+вычисляем номер порта
+$ export NODE_PORT=$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')
+$ echo NODE_PORT=$NODE_PORT
+NODE_PORT=30920
+
+обращаемся к приложению через адрес кластера кубернетес и порт публикации
+$ curl $(minikube ip):$NODE_PORT
+Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-765bf4c7b4-ndnq2 | v=1
+
+вывод статуса пода
+$ kubectl describe deployment
+Name:                   kubernetes-bootcamp
+Namespace:              default
+CreationTimestamp:      Mon, 13 Jul 2020 04:55:54 +0000
+Labels:                 run=kubernetes-bootcamp
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               run=kubernetes-bootcamp
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  run=kubernetes-bootcamp
+  Containers:
+   kubernetes-bootcamp:
+    Image:        gcr.io/google-samples/kubernetes-bootcamp:v1
+    Port:         8080/TCP
+    Host Port:    0/TCP
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   kubernetes-bootcamp-765bf4c7b4 (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  7m2s  deployment-controller  Scaled up replica set kubernetes-bootcamp-765bf4c7b4 to 1
+$ 
+
+вывод информации о запущенном поде
+$ kubectl get pods -l run=kubernetes-bootcamp
+NAME                                   READY   STATUS    RESTARTS   AGE
+kubernetes-bootcamp-765bf4c7b4-ndnq2   1/1     Running   0          8m4s
+
+$ kubectl get services -l run=kubernetes-bootcamp
+NAME                  TYPE       CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
+kubernetes-bootcamp   NodePort   10.96.87.27   <none>        8080:30920/TCP   5m8s
+
+вывод имени пода и сохранение его в переменную, для дальнейшего использования
+$ export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
+$ echo Name of the Pod: $POD_NAME
+Name of the Pod: kubernetes-bootcamp-765bf4c7b4-ndnq2
+$
 
 
 

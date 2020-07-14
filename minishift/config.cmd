@@ -1,0 +1,10 @@
+minishift config set network-ipaddress "192.168.5.252" 
+minishift config set network-netmask "255.255.255.0" 
+minishift config set network-gateway "192.168.5.1" 
+minishift config set network-nameserver "192.168.5.1" 
+minishift config set hyperv-virtual-switch "containers"
+minishift config set disk-size "50Gb"
+minishift config set memory "16Gb"
+minishift config set cpus "4"
+minishift config set public-hostname "okd311.lan"
+REM set MINISHIFT_ENABLE_EXPERIMENTAL=y 

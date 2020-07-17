@@ -1,2 +1,5 @@
+#!/bin/bash
 git add -A
-git commit -a -m "test"
+_DATE_=$(date +"%d.%m.%y %H:%M:%S")
+
+git commit -a -m $_DATE_$

@@ -1,0 +1,5 @@
+FROM node:14.0.0
+RUN apt update && apt upgrade -y && apt clean all && apt autoclean
+RUN apt install update-manager-core -y
+RUN do-release-upgrade -d -f DistUpgradeViewNonInteractive
+RUN do-release-upgrade -d -f DistUpgradeViewNonInteractive

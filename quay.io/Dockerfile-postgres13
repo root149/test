@@ -1,0 +1,2 @@
+FROM postgres:13
+RUN apt update && apt upgrade -y && apt clean all && apt autoclean

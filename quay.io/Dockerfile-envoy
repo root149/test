@@ -1,0 +1,6 @@
+FROM envoyproxy/envoy:v1.14.4 
+RUN apt update && apt upgrade -y && apt clean all && apt autoclean
+RUN apt install update-manager-core -y
+RUN do-release-upgrade -f DistUpgradeViewNonInteractive
+RUN do-release-upgrade -d -f DistUpgradeViewNonInteractive
+

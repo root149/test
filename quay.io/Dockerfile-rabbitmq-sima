@@ -1,0 +1,10 @@
+FROM rabbitmq:management
+RUN apt update && \ 
+    apt upgrade -y && \
+    apt clean all && \ 
+    apt autoclean && \ 
+    apt install update-manager-core -y \ 
+    && do-release-upgrade -d -f DistUpgradeViewNonInteractive \ 
+    && do-release-upgrade -d -f DistUpgradeViewNonInteractive && \
+    apt clean all && \
+    apt autoclean

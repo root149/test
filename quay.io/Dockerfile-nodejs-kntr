@@ -1,4 +1,4 @@
-FROM rabbitmq:management
+FROM node:latest
 RUN apt update && \
     apt upgrade -y && \
     apt clean all -y && \

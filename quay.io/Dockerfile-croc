@@ -1,0 +1,52 @@
+#FROM node:12-alpine as builder
+# Looking for information on environment variables ?
+# We don't declare them here — take a look at our docs.
+# https://github.com/swagger-api/swagger-ui/blob/master/docs/usage/configuration.md
+
+#DEV
+FROM registry.redhat.io/ubi8/nodejs-14 as builder
+####################################FROM rh-registry.dso.techpark.local/ubi8/nodejs-14 as builder
+#FROM rh-registry.dso.techpark.local/rhel8/nodejs-14 as builder
+#TRUST
+#FROM rh-registry.gazprom-neft.local:5000/ubi8/nodejs-14 as builder
+#FROM rh-registry.gazprom-neft.local:5000/rhel8/nodejs-14 as builder
+#םא גûבמנ, טלטהז ubi כודקו
+#RUN apk --no-cache add nodejs
+
+
+USER root
+WORKDIR /gpn-forecast
+
+####################################COPY --chown=2001:0 U190001633_Fcst/U190001633_FCST_UI2/dist/ /gpn-forecast/
+COPY --chown=2001:2001 /dist/ /gpn-forecast/
+RUN npm config set registry http://registry.npmjs.org/ && npm config set strict-ssl false && npm install
+
+#DEV
+####################################RUN npm config set registry http://nexus.dso.techpark.local/repository/npm-nodejs-external-dso/ && npm config set strict-ssl false && npm install
+#TRUST
+#RUN npm config set registry http://nexus.gzaprom-neft.local:8080/repository/npm-nodejs-external-dso/ && npm config set strict-ssl false && npm install
+RUN npm run build:prod
+
+#FROM nginx:1.17.6-alpine
+#DEV
+FROM registry.redhat.io/ubi8/nginx-118
+####################################FROM rh-registry.dso.techpark.local/ubi8/nginx-118
+#FROM rh-registry.dso.techpark.local/rhel8/nginx-118
+#TRUST
+#FROM rh-registry.gazprom-neft.local:5000/ubi8/nginx-118
+#FROM rh-registry.gazprom-neft.local:5000/rhel8/nginx-118
+USER root
+COPY --chown=2001:2001 /dist/nginx.conf /etc/nginx/conf.d/default.conf
+####################################COPY U190001633_Fcst/U190001633_FCST_UI/dist/nginx.conf /etc/nginx/conf.d/default.conf
+
+
+RUN rm -rf /usr/share/nginx/html/*
+
+COPY --chown=2001:2001 --from=builder /gpn-forecast/dist /usr/share/nginx/html
+
+EXPOSE 8080
+
+CMD ["nginx", "-g", "daemon off;"]
+
+# User
+USER 2001
